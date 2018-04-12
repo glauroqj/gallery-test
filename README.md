@@ -18,6 +18,6 @@ npm run build
 npm run build --report
 ```
 # routes
-<a href="localhost:8080/">First</a>
-<a href="localhost:8080/second">Second</a>
-<a href="localhost:8080/last">Third</a>
+[First](localhost:8080/)
+[Second](localhost:8080/second)
+[Third](localhost:8080/last)

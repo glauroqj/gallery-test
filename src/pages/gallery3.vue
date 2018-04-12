@@ -2,16 +2,17 @@
   <div>
     <div class="container">
       <div class="row">
-        <h4>Gallery</h4>
+        <h4>Gallery 3</h4>
       </div>
       <div class="row">
         <ul class="list-inline">
-          <li v-for="item in pictures" class="box">
+          <li v-for="item in state.pictures" class="box">
             <a :href="item.url" title="">
               <img :src="item.url" alt="">
             </a>
           </li>
         </ul>
+<!--           <div v-if="state.message">Gallery DONE</div> -->
       </div>
     </div>
   </div>
@@ -27,39 +28,24 @@
     name: 'login',
     data () {
       return {
-        msg: '',
-        pictures: ''
       }
     },
     created () {
-    // this.$store.dispatch()
-    this.callApi();
+      let param = {
+          size: '50',
+          category: 'space',
+          format: 'xml'
+      };
+      this.$store.dispatch('callApiAction', param);
   },
   computed: mapGetters({
-    state: 'loginState'
+    state: 'actualState'
   }),
   methods: {
-    callApi() {
+    callApi(parameters) {
+
       let vm = this;
       let parseString = require('xml2js').parseString;
-
-      // console.log(parseString)
-      axios.get(`http://thecatapi.com/api/images/get?format=xml&results_per_page=100`)
-      .then(response => {
-        vm.pictures = response.data;
-
-        var xml = response.data;
-        parseString(xml, function (err, result) {
-          console.log(result.response.data[0].images[0].image);
-          vm.pictures = result.response.data[0].images[0].image;
-          // let images = result.response.data[0].images
-          // result.map
-        });
-
-      })
-      .catch(e => {
-
-      })
     }
   }
 }

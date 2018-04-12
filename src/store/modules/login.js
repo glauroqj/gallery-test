@@ -1,32 +1,42 @@
+import axios from 'axios';
 // initial state
 const state = {
-  all: []
+  all: {
+    pictures: ''
+  }
 }
 
 // getters
 const getters = {
-  loginState: state => state.all
+  actualState: state => state.all
 }
 
 // actions
 const actions = {
-  // getAllProducts ({ commit }) {
-  //   shop.getProducts(products => {
-  //     commit('setProducts', products)
-  //   })
-  // }
+  callApiAction(state, param) {
+    var vm = this;
+    let parseString = require('xml2js').parseString;
+    let newURL = 'http://thecatapi.com/api/images/get?format='+param.format+'&category='+param.category+'&results_per_page='+param.size
+
+    axios.get(newURL) 
+    .then(response => {
+     let xml = response.data;
+     parseString(xml, function (err, result) {
+        // console.log(result.response.data[0].images[0].image);
+        let payload = result.response.data[0].images[0].image;
+        vm.commit('callApiMutation', payload)
+      });
+   })
+    .catch(e => {})
+
+  }
 }
 
 // mutations
 const mutations = {
-  // setProducts (state, products) {
-  //   state.all = products
-  // },
-
-  // decrementProductInventory (state, { id }) {
-  //   const product = state.all.find(product => product.id === id)
-  //   product.inventory--
-  // }
+  callApiMutation(state, payload) {
+    state.all.pictures = payload;
+  }
 }
 
 export default {

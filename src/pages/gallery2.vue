@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="row">
-        <h4>Gallery</h4>
+        <h4>Gallery 2</h4>
       </div>
       <div class="row">
         <ul class="list-inline">
@@ -44,7 +44,7 @@
       let parseString = require('xml2js').parseString;
 
       // console.log(parseString)
-      axios.get(`http://thecatapi.com/api/images/get?format=xml&results_per_page=100`)
+      axios.get(`http://thecatapi.com/api/images/get?format=xml&category=hats&results_per_page=20`)
       .then(response => {
         vm.pictures = response.data;
 
